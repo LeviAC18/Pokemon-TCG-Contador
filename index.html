@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokémon TCG - Arena Counter</title>
+    
+    <!-- Configuração do seu Ícone Personalizado (POKEMON-ICO) -->
+    <link rel="icon" type="image/x-icon" href="POKEMON-ICO.ico">
+    <link rel="icon" type="image/png" href="POKEMON-ICO.png">
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -20,6 +25,7 @@
         </div>
     </header>
 
+    <!-- Painel de Invocação (Adicionar) -->
     <div class="form-add">
         <input type="text" id="pokeName" placeholder="Nome do Pokémon (ex: Charizard)" required>
         <input type="number" id="pokeHp" placeholder="HP" value="120" step="10">
@@ -38,6 +44,7 @@
         <button onclick="addPokemon()">Invocar Carta</button>
     </div>
 
+    <!-- Campos de Batalha -->
     <div id="player1-list" class="pokemon-list"></div>
     <div id="player2-list" class="pokemon-list hidden"></div>
 </div>
