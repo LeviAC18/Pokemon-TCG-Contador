@@ -1,0 +1,324 @@
+:root {
+    --bg-arena: #121214;
+    --card-bg: #1a1b20;
+    --border-gold: #c5a880;
+    --text-light: #e2e8f0;
+    
+    /* Degradês de Textura por Tipo */
+    --bgi-grass: linear-gradient(135deg, #2e5a1c, #559632);
+    --bgi-fire: linear-gradient(135deg, #7c2d12, #ea580c);
+    --bgi-water: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    --bgi-lightning: linear-gradient(135deg, #713f12, #eab308);
+    --bgi-psychic: linear-gradient(135deg, #581c87, #a855f7);
+    --bgi-fighting: linear-gradient(135deg, #7c2d12, #b45309);
+    --bgi-darkness: linear-gradient(135deg, #111827, #374151);
+    --bgi-metal: linear-gradient(135deg, #374151, #9ca3af);
+    --bgi-dragon: linear-gradient(135deg, #4c1d95, #6d28d9);
+    --bgi-colorless: linear-gradient(135deg, #27272a, #52525b);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Cinzel', 'Georgia', serif;
+}
+
+body {
+    background: radial-gradient(circle, #1a1c23 0%, #08090c 100%);
+    color: var(--text-light);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.arena-container {
+    width: 100%;
+    max-width: 1100px;
+    background: rgba(10, 11, 15, 0.9);
+    border: 3px solid #2a2c35;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+}
+
+.arena-header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #2a2c35;
+    padding-bottom: 20px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    letter-spacing: 4px;
+    color: var(--border-gold);
+    text-shadow: 0 0 10px rgba(197, 168, 128, 0.3);
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: #6b7280;
+    letter-spacing: 2px;
+}
+
+/* Abas estilo Jogo de Cartas */
+.tabs {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.tab-btn {
+    padding: 12px 35px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: 2px solid var(--border-gold);
+    border-radius: 4px;
+    cursor: pointer;
+    background: transparent;
+    color: var(--border-gold);
+    transition: all 0.3s;
+}
+
+.tab-btn.active {
+    background: var(--border-gold);
+    color: #121214;
+    box-shadow: 0 0 15px rgba(197, 168, 128, 0.4);
+}
+
+/* Painel de Invocação */
+.form-add {
+    background: #16171d;
+    border: 1px solid #2a2c35;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.form-add input, .form-add select, .form-add button {
+    padding: 12px;
+    font-size: 1rem;
+    background: #0f1013;
+    border: 1px solid #3f424f;
+    color: white;
+    border-radius: 4px;
+    outline: none;
+}
+
+.form-add input[type="text"] { flex: 2; min-width: 180px; }
+.form-add input[type="number"] { flex: 0.5; min-width: 80px; }
+.form-add button {
+    background: #7c2d12;
+    border: 1px solid #ea580c;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+.form-add button:hover { background: #ea580c; }
+
+/* Grid de Cartas */
+.pokemon-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+/* Estilo da Carta (Inspirado na imagem) */
+.pokemon-card {
+    background: var(--card-bg);
+    border: 4px solid #2a2c35;
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    cursor: grab;
+    position: relative;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    transition: transform 0.2s, border-color 0.3s, opacity 0.5s, filter 0.5s;
+}
+
+.pokemon-card:active { cursor: grabbing; }
+
+/* Destaque Ativo (Efeito de Aura Sombria/Luminosa) */
+.pokemon-card.active-pokemon {
+    border-color: var(--border-gold);
+    box-shadow: 0 0 25px rgba(197, 168, 128, 0.5);
+}
+
+/* Estado de Derrota (Opaco e Cinzento) */
+.pokemon-card.defeated {
+    opacity: 0.4;
+    filter: grayscale(100%);
+    border-color: #4b5563 !important;
+    box-shadow: none !important;
+}
+
+/* Moldura de Textura do Tipo */
+.card-frame {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.poke-name {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 3px black;
+}
+
+.poke-type {
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    background: rgba(0,0,0,0.4);
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.2);
+    text-transform: uppercase;
+}
+
+/* Container da Imagem Real */
+.poke-image-container {
+    background: #0f1013;
+    border: 2px solid rgba(0,0,0,0.5);
+    border-radius: 6px;
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.poke-image {
+    max-height: 90%;
+    object-fit: contain;
+    transition: transform 0.3s;
+}
+
+/* Botão de trocar imagem sem graça */
+.cycle-img-btn {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background: rgba(0,0,0,0.7);
+    border: 1px solid var(--border-gold);
+    color: var(--border-gold);
+    font-size: 0.7rem;
+    padding: 3px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Seção de HP */
+.life-section {
+    text-align: center;
+    background: rgba(0,0,0,0.3);
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.life-display {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #ef4444;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+/* Controles de Combate */
+.damage-controls {
+    display: flex;
+    gap: 6px;
+}
+
+.damage-controls input {
+    width: 65px;
+    background: #0f1013;
+    border: 1px solid #3f424f;
+    color: white;
+    text-align: center;
+    font-size: 1.1rem;
+    border-radius: 4px;
+}
+
+.btn-damage {
+    flex: 1;
+    background: #991b1b;
+    border: 1px solid #ef4444;
+    color: white;
+    padding: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.btn-damage:hover { background: #ef4444; }
+
+.btn-heal {
+    background: #166534;
+    border: 1px solid #22c55e;
+    color: white;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* Ações Inferiores */
+.card-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+}
+
+.active-btn {
+    background: #2a2c35;
+    border: 1px solid #3f424f;
+    color: #9ca3af;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+.pokemon-card.active-pokemon .active-btn {
+    background: var(--border-gold);
+    color: #121214;
+    font-weight: bold;
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    color: #4b5563;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+.delete-btn:hover { color: #ef4444; }
+
+.hidden { display: none !important; }
+
+/* --- ANIMAÇÕES --- */
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    30% { transform: translate(-3px, 0px) rotate(1deg); }
+    50% { transform: translate(1px, 2px) rotate(0deg); }
+    70% { transform: translate(-1px, 1px) rotate(-1deg); }
+    90% { transform: translate(3px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(0deg); }
+}
+
+.shake-animation {
+    animation: shake 0.3s ease-in-out;
+}
